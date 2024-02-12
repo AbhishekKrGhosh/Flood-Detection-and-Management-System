@@ -1,0 +1,77 @@
+#define BLYNK_PRINT Serial
+#define BLYNK_TEMPLATE_ID ""
+#define BLYNK_TEMPLATE_NAME ""
+#define BLYNK_AUTH_TOKEN ""
+#include <WiFi.h>
+#include <WiFiClient.h>
+#include <BlynkSimpleEsp32.h>
+char auth[] = BLYNK_AUTH_TOKEN;
+char ssid[] = "I";
+char pass[] = "";
+#define PUMP_PIN 23
+#define BUZZER_PIN 22
+
+bool pumpState = HIGH;
+int count = 0;
+bool flag = false;
+
+BLYNK_WRITE(V1) {
+  int buttonState = param.asInt();
+  if (buttonState == HIGH) {
+    pumpState = HIGH;
+    digitalWrite(PUMP_PIN, LOW);
+    digitalWrite(BUZZER_PIN, HIGH);
+    delay(3000);
+    Blynk.logEvent("flood", "Flood is coming");
+  } else {
+    pumpState = LOW;
+    digitalWrite(PUMP_PIN, HIGH);
+    digitalWrite(BUZZER_PIN, LOW);
+  }
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(PUMP_PIN, OUTPUT);
+  pinMode(22, OUTPUT);
+  digitalWrite(PUMP_PIN, pumpState);
+
+
+  Blynk.begin(auth, ssid, pass);
+}
+
+void loop() {
+  int a = touchRead(T0);
+  int b = touchRead(T3);
+  Serial.println(a);
+  Serial.println(b);
+
+  if (a < 60) {
+    delay(10000);
+    if (b >= 60) {
+      count++;
+    }
+  }
+
+  if (a < 60 && count > 0) {
+    if (b < 60) {
+      flag = true;
+    }
+  }
+
+  if (a >= 60) {
+    flag = false;
+    count = 0;
+  }
+
+  if (flag == true) {
+    digitalWrite(PUMP_PIN, LOW);
+    Blynk.logEvent("flood", "Flood is coming");
+    digitalWrite(BUZZER_PIN, HIGH);
+  } else {
+    digitalWrite(PUMP_PIN, HIGH);
+    digitalWrite(BUZZER_PIN, LOW);
+  }
+
+  Blynk.run();
+}
