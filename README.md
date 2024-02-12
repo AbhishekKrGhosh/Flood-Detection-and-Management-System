@@ -4,3 +4,8 @@
 It provides Real-time Monitoring, Early-Flood warning, Remote-monitoring and control and affordability.
 In this we have two sensors. We are taking the data from sensor1 and sensor2. Here sensor1 and sensor2 are nothing but the touch sensors which are already available with the esp32 board. From over there we are taking the input from the touch sensors, we are also elimination the changes of touch sensors showing wrong data because of a rainfall. After that if it shows a case of flood, we would like to start the pump and let the water flow into the man-made reservoir. This not only reduces the water level of the river saving from the problem of flooding, but this water can also be used after that for other purposes. Other than this, we are also uploading the data of the flood onto the cloud, and in case of flood we are sending normal people who lives in that area an alert that flood is coming.
 </h4>
+![image](https://github.com/AbhishekKrGhosh/Flood-Detection-and-Management-System/assets/92973940/ba85a172-6c51-4675-998c-daeec534b002)
+![image](https://github.com/AbhishekKrGhosh/Flood-Detection-and-Management-System/assets/92973940/82e5adc9-4d59-4dac-bc3d-0eee1b658cde)
+![image](https://github.com/AbhishekKrGhosh/Flood-Detection-and-Management-System/assets/92973940/c9eaa55a-0aa5-44e4-9071-f621f1c30df1)
+
+
